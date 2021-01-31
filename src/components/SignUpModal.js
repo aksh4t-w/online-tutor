@@ -1,9 +1,10 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
-import { auth } from '../firebase';
+import { auth } from '../firebase'
 import firebase from "firebase"
-
+import Form from 'react-bootstrap/Form'
+// import DatePicker from "react-bootstrap-date-picker"
 
 function SignUp() {
   const [show, setShow] = useState(false);
@@ -11,9 +12,10 @@ function SignUp() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [name, setName] = useState('')
+  const [DOB, setDOB] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
 
   const signup = (e) => {
       e.preventDefault()
@@ -55,13 +57,14 @@ function SignUp() {
         var credential = error.credential;
         // ...
       });
+      handleClose()
 
   }
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Sign Up
+        Register Now!
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -74,16 +77,26 @@ function SignUp() {
 
         <Modal.Body>
             Woohoo, you're reading this text in a modal!
-            <form>
-                <label>E-mail</label>
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <br/>
-                <label>Password</label>
-                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                
-                <button className="login__RegBtn" onClick={signup}>Sign Up</button>
-                
-            </form>
+            <Form>
+                <Form.Group controlId="formGrouptText">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Enter name" value={name} onChange={e => setName(e.target.value)}/>
+                </Form.Group>
+                <Form.Group controlId="formGrouptText">
+                    <Form.Label>Date of birth</Form.Label>
+                    <Form.Control type="date" placeholder="Enter DOB" value={DOB} onChange={e => setDOB(e.target.value)}/>
+                </Form.Group>
+                <Form.Group controlId="formGroupEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}/>
+                </Form.Group>
+                <Form.Group controlId="formGroupPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} value={password}/>
+                </Form.Group>
+                    <Button className="login__RegBtn" onClick={signup}>Register</Button>                    
+
+            </Form>
         </Modal.Body>
 
 

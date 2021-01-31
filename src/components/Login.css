@@ -1,3 +1,12 @@
 .login__logo {
   height: 100px;
 }
+
+.login {
+  margin: auto;
+  width: 40%;
+}
+
+.login__signInBtn {
+  margin: 5px;
+}
