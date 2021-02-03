@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import firebase from "firebase"
 import Form from 'react-bootstrap/Form'
 // import DatePicker from "react-bootstrap-date-picker"
@@ -13,15 +13,25 @@ function SignUp() {
   const handleShow = () => setShow(true);
 
   const [name, setName] = useState('')
-  const [DOB, setDOB] = useState('')
+  // const [DOB, setDOB] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const signup = (e) => {
       e.preventDefault()
       auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        // console.log(cred)
-      })
+
+          // setting additional info to users collection (set overwrites, add pushes)
+          // return db.collection('users').doc(user.cred.uid).set({data:data})
+          // console.log(cred.user)
+          cred.user.updateProfile({
+            displayName: name,
+          }).then(console.log('done')).catch(err=>console.log(err))
+        
+      }).catch(err=>console.log(err.message))
+
+    // f().then(o=>{return()}).then(operation)
+
       setEmail('')
       setPassword('')
       handleClose()
@@ -29,11 +39,6 @@ function SignUp() {
 
   const googleSignup = async() => {
     var provider = new firebase.auth.GoogleAuthProvider();
-
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    provider.setCustomParameters({
-      'login_hint': 'user@example.com'
-    });
 
     await auth
       .signInWithPopup(provider)
@@ -80,19 +85,19 @@ function SignUp() {
             <Form>
                 <Form.Group controlId="formGrouptText">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter name" value={name} onChange={e => setName(e.target.value)}/>
+                    <Form.Control type="text" placeholder="Enter name" value={name} onChange={e => setName(e.target.value)} required/>
                 </Form.Group>
-                <Form.Group controlId="formGrouptText">
-                    <Form.Label>Date of birth</Form.Label>
-                    <Form.Control type="date" placeholder="Enter DOB" value={DOB} onChange={e => setDOB(e.target.value)}/>
-                </Form.Group>
+                {/* <Form.Group controlId="formGrouptText">
+                    <Form.Label>Mobile No.</Form.Label>
+                    <Form.Control type="text" placeholder="Enter DOB" value={DOB} onChange={e => setDOB(e.target.value)} required/>
+                </Form.Group> */}
                 <Form.Group controlId="formGroupEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}/>
+                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} required/>
                 </Form.Group>
                 <Form.Group controlId="formGroupPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} value={password}/>
+                    <Form.Control type="password" placeholder="Enter password" onChange={e => setPassword(e.target.value)} value={password} required/>
                 </Form.Group>
                     <Button className="login__RegBtn" onClick={signup}>Register</Button>                    
 
