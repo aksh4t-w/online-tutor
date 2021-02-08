@@ -5,9 +5,10 @@ import SignUp from './SignUpModal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { auth, db } from '../firebase';
+import { auth } from '../firebase';
 import { useContextProvider } from '../contexts/ContextProvider';
 import Dashboard from './Dashboard';
+import { googleSignup } from './googleSignup';
 
 const Login = () => {
     const history = useHistory()
@@ -35,11 +36,12 @@ const Login = () => {
     const login = (e) => {
         e.preventDefault() 
         auth.signInWithEmailAndPassword(email, password).then((cred)=>{
-
+            // cred.user
         }).catch(err=>console.log(err))
-    }
 
-    
+        setEmail('')
+        setPassword('')
+    }
 
     return (
         <div className="login">
@@ -62,7 +64,9 @@ const Login = () => {
                 <Button className="login__signInBtn" onClick={login}>Sign In</Button>                    
 
                 </Form>
-
+                <Button variant="primary" onClick={googleSignup}>
+                    Sign in with Google
+                </Button>
                 <SignUp />
                 
             </div>: <Dashboard/>}
