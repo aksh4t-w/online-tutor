@@ -1,3 +1,19 @@
 .dashboard {
-  overflow-y: overlay;
+}
+
+.container {
+  /* color: black; */
+  background-color: #181a1b;
+  border: 1px solid rgba(146, 143, 143, 0.2);
+}
+
+.adminPanel {
+}
+
+.adminButtons {
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
 }

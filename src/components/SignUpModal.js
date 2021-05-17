@@ -35,9 +35,7 @@ function SignUp() {
       setPassword('')
       handleClose()
   }
-
   
-
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -53,7 +51,7 @@ function SignUp() {
 
 
         <Modal.Body>
-            Woohoo, you're reading this text in a modal!
+            {/* Woohoo, you're reading this text in a modal! */}
             <Form>
                 <Form.Group controlId="formGrouptText">
                     <Form.Label>Name</Form.Label>
@@ -71,17 +69,13 @@ function SignUp() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Enter password" onChange={e => setPassword(e.target.value)} value={password} required/>
                 </Form.Group>
-                    <Button className="login__RegBtn" onClick={signup}>Register</Button>                    
-
             </Form>
         </Modal.Body>
 
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button className="login__RegBtn" onClick={signup}>Register</Button>                    
         </Modal.Footer>
 
 

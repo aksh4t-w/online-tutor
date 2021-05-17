@@ -1,6 +1,7 @@
 .app {
   text-align: center;
-  background-color: rgb(36, 20, 20);
+  background-color: rgb(26, 23, 23);
   color: aliceblue;
   height: 100vh;
+  overflow-y: overlay;
 }
